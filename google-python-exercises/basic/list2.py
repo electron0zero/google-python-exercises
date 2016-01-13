@@ -15,7 +15,7 @@
 def remove_adjacent(nums):
     final = []
     for x in nums:
-        if (len(final)== 0) or (final[-1] != x):
+        if (len(final) == 0) or (final[-1] != x):
             final.append(x)
     return final
 

@@ -23,9 +23,9 @@
 def match_ends(words):
     a = 0
     for x in words:
-        if len(x) >= 2 :
+        if len(x) >= 2:
             if x[:1] == x[-1:]:
-                a +=1
+                a += 1
     return a
 
 # B. front_x
