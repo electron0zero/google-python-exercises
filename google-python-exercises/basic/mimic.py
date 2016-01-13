@@ -6,7 +6,8 @@
 # Google's Python Class
 # http://code.google.com/edu/languages/google-python-class/
 
-"""Mimic pyquick exercise -- optional extra exercise.
+"""
+Mimic pyquick exercise -- optional extra exercise.
 Google's Python Class
 
 Read in the file specified on the command line.
@@ -46,26 +47,56 @@ import sys
 
 
 def mimic_dict(filename):
-  """Returns mimic dict mapping each word to list of words which follow it."""
-  # +++your code here+++
-  return
+    """Returns mimic dict mapping each word to list of words which follow it."""
+    dict_mimic = {}
+    f = open(filename, 'rU')
+    file = f.read()
+    f.close()
+    words = file.split()
+    prev = ''
+    for word in words:
+        if prev not in dict_mimic:
+            dict_mimic[prev] = [word]
+        else:   # if a list of words for previous word as a key exists then append that word in that list
+            dict_mimic[prev].append(word)
+        prev = word
+    # print(dict_mimic) #uncomment if you want's to see whole dictionary
+    return dict_mimic
 
 
 def print_mimic(mimic_dict, word):
-  """Given mimic dict and start word, prints 200 random words."""
-  # +++your code here+++
-  return
+    """ Given mimic dict and start word, prints 200 random words. """
+    """ print this whole mimic thing in a file
+
+    #outfilepath = "C:\\Users\Electron\Desktop\\file.txt"
+    #f = open(outfilepath,'w',encoding='GBK')
+    #sys.stdout = f
+    """
+
+    for i in range(200):
+        print(word, end=" ")    # end parm for custom EOL
+        next_word = mimic_dict.get(word)
+        if not word:    # mimic_dict.get() will return none if no word is found
+            # if file finises or we don't have next word (above check tells that) then fallback to start
+            next_word = mimic_dict['']
+        word = random.choice(next_word)
+    """ for printing back to screen we need to set stdout back to __stdout__
+        so we can print "done"
+
+    #sys.stdout = sys.__stdout__
+    #print("done")
+    """
 
 
 # Provided main(), calls mimic_dict() and mimic()
 def main():
-  if len(sys.argv) != 2:
-    print 'usage: ./mimic.py file-to-read'
-    sys.exit(1)
+    if len(sys.argv) != 2:
+        print('usage: ./mimic.py file-to-read')
+        sys.exit(1)
 
-  dict = mimic_dict(sys.argv[1])
-  print_mimic(dict, '')
+    dict = mimic_dict(sys.argv[1])
+    print_mimic(dict, '')
 
 
 if __name__ == '__main__':
-  main()
+    main()
